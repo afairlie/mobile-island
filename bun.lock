@@ -3,7 +3,7 @@
   "configVersion": 0,
   "workspaces": {
     "": {
-      "name": "cli-game",
+      "name": "mobile-island",
       "dependencies": {
         "ink": "^5.2.0",
         "react": "^18.2.0",

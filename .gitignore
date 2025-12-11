@@ -1,6 +1,5 @@
 node_modules
 *.env
 dist/
-row-kirat-row
 *.log
 .DS_Store

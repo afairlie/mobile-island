@@ -10,7 +10,7 @@ NC='\033[0m' # No Color
 # Configuration
 BINARY_NAME="row-kirat-row"
 INSTALL_DIR="/usr/local/bin"
-GITHUB_REPO="afairlie/cli-game"  # Update this with your actual repo
+GITHUB_REPO="afairlie/mobile-island"
 VERSION="latest"
 
 echo -e "${GREEN}Installing Row Kirat Row...${NC}"

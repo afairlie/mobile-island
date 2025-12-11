@@ -15,7 +15,7 @@
 Install via curl:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/afairlie/cli-game/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/afairlie/mobile-island/main/install.sh | bash
 ```
 
 Then run the game:
@@ -33,7 +33,7 @@ row-kirat-row
 
 2. Install dependencies:
    ```bash
-   npm install
+   bun install
    ```
 
 3. Run in development mode:
@@ -59,18 +59,30 @@ row-kirat-row
 
 ## Distribution
 
-To distribute this game:
+### To distribute this game
+
+Prerequisites:
+- Make sure `install.sh` points to your repo
+- You've pushed the latest install script to main
+- The repo is public
 
 1. Build the executable:
    ```bash
    bun run build:macos
    ```
+   
+2. Install gh cli
+   ```bash
+   brew install gh
+   gh auth login
+   ```
 
-2. Create a GitHub release and upload the `row-kirat-row` binary
-
-3. Update `install.sh` with your GitHub username
+3. Create a GitHub release and upload the `row-kirat-row` binary
+   ```bash
+   bun run release [-- --notes "Release notes"]
+   ```
 
 4. Users can then install with:
    ```bash
-   curl -fsSL https://raw.githubusercontent.com/YOUR_USERNAME/cli-game/main/install.sh | bash
+   curl -fsSL https://raw.githubusercontent.com/YOUR_REPO/main/install.sh | bash
    ```

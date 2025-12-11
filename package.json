@@ -1,25 +1,13 @@
 {
-  "name": "cli-game",
-  "version": "1.0.0",
+  "name": "mobile-island",
+  "version": "0.0.1",
   "description": "A CLI rowing game built with React Ink",
   "type": "module",
-  "main": "dist/index.js",
-  "bin": {
-    "cli-game": "./dist/index.js"
-  },
   "scripts": {
     "dev": "bun run src/index.tsx",
-    "build": "bun build src/index.tsx --outdir dist --target node",
-    "build:macos": "bun build src/index.tsx --compile --outfile row-kirat-row --minify --define process.env.NODE_ENV='\"production\"'",
-    "start": "bun run dist/index.js"
+    "build:macos": "bun build src/index.tsx --compile --outfile ./dist/row-kirat-row --minify --define process.env.NODE_ENV='\"production\"'",
+    "release": "gh release create v$npm_package_version --title \"Mobile Island v$npm_package_version\" ./dist/row-kirat-row"
   },
-  "keywords": [
-    "cli",
-    "game",
-    "terminal"
-  ],
-  "author": "",
-  "license": "MIT",
   "dependencies": {
     "ink": "^5.2.0",
     "react": "^18.2.0"
