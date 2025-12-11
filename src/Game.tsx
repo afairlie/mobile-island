@@ -1,6 +1,6 @@
 import { Box, Text, useInput } from 'ink';
 import React from 'react';
-import { GAME_HEIGHT, GAME_WIDTH, ISLAND_DISTANCE } from './types.js';
+import { ACCOMPLISHMENTS, GAME_HEIGHT, GAME_WIDTH, ISLAND_DISTANCE } from './types.js';
 import { useGame } from './useGame.js';
 
 export function Game() {
@@ -32,7 +32,7 @@ export function Game() {
   }
 
   if (gameState.gameStatus === 'gameOver') {
-    return <GameOverScreen level={gameState.level} score={gameState.score} />;
+    return <GameOverScreen level={gameState.level} score={gameState.score} message={gameState.gameOverMessage} />;
   }
 
   // Build the game grid
@@ -48,7 +48,7 @@ export function Game() {
       obs.position.x >= 0 &&
       obs.position.x < GAME_WIDTH
     ) {
-      grid[obs.position.y][obs.position.x] = obs.type === 'rock' ? '🪨' : obs.type === "wave" ? '🌊' : '🦈';
+      grid[obs.position.y][obs.position.x] = obs.type === 'rock' ? '🗿' : obs.type === "wave" ? '🌊' : '🦈';
     }
   });
 
@@ -69,7 +69,7 @@ export function Game() {
       <Box borderStyle="round" borderColor="cyan" flexDirection="column" padding={1}>
         <Box marginBottom={1}>
           <Text color="yellow" bold>
-            🏝️  MOBILE ISLAND ROWING GAME  🏝️
+            ROW TO MOBILE ISLAND
           </Text>
         </Box>
 
@@ -81,18 +81,43 @@ export function Game() {
           <Text>Progress: <Text color="cyan">{progressPercent}%</Text></Text>
         </Box>
 
-        <Box borderStyle="single" borderColor="blue" flexDirection="column">
-          {grid.map((row, i) => (
-            <Text key={i} color={'white'}>
-              {i === 0 ? '🏝️ ' : '   '}
-              {row.join('')}
-              {i === 0 ? ' 🏝️' : '   '}
-            </Text>
-          ))}
+        <Box flexDirection="row">
+          <Box flexDirection="column" alignItems="center">
+            <Box borderStyle="single" borderColor="blue" flexDirection="column">
+              {grid.map((row, i) => (
+                <Box key={i}>
+                  {row.map((cell, j) => (
+                    <Box key={j} width={2}>
+                      <Text color={'white'}>{cell}</Text>
+                    </Box>
+                  ))}
+                </Box>
+              ))}
+            </Box>
+          </Box>
+
+          <Box marginLeft={2} flexDirection="column">
+            <Box marginBottom={1}>
+              <Text color="cyan" bold>  🌴  </Text>
+            </Box>
+            <Box flexDirection="column" width={8} height={GAME_HEIGHT}>
+              {Array(GAME_HEIGHT).fill(null).map((_, i) => {
+                const rowProgress = ((GAME_HEIGHT - i) / GAME_HEIGHT) * 100;
+                const isFilled = progressPercent >= rowProgress;
+                return (
+                  <Box key={i} justifyContent="center">
+                    <Text color={isFilled ?  'gray': 'cyan'}>
+                      {isFilled ? '░░░░░' :  '█████'}
+                    </Text>
+                  </Box>
+                );
+              })}
+            </Box>
+          </Box>
         </Box>
 
         <Box marginTop={1}>
-          <Text dimColor>Use arrow keys to move • Dodge obstacles (🪨 🌊 🦈) • Reach the island!</Text>
+          <Text dimColor>Use arrow keys to move • Dodge obstacles (🗿 🌊 🦈) • Reach the island!</Text>
         </Box>
       </Box>
     </Box>
@@ -100,6 +125,10 @@ export function Game() {
 }
 
 function CelebrationScreen({ level, score }: { level: number; score: number }) {
+  const accomplishmentIndex = level % ACCOMPLISHMENTS.length;
+  // Reverse index so we go chronologically
+  const accomplishment = ACCOMPLISHMENTS.at(-accomplishmentIndex);
+
   return (
     <Box flexDirection="column" padding={2}>
       <Box borderStyle="double" borderColor="green" flexDirection="column" padding={2}>
@@ -115,6 +144,14 @@ function CelebrationScreen({ level, score }: { level: number; score: number }) {
 
         <Box justifyContent="center" marginBottom={2}>
           <Text>Total Score: <Text color="cyan" bold>{score}</Text></Text>
+        </Box>
+
+        <Box justifyContent="center" marginY={1}>
+          <Text color="magenta" bold>Accomplishment Unlocked:</Text>
+        </Box>
+
+        <Box justifyContent="center" marginBottom={2}>
+          <Text color="white">✨ {accomplishment}</Text>
         </Box>
 
         <Box justifyContent="center" marginY={1}>
@@ -137,7 +174,7 @@ function CelebrationScreen({ level, score }: { level: number; score: number }) {
   );
 }
 
-function GameOverScreen({ level, score }: { level: number; score: number }) {
+function GameOverScreen({ level, score, message }: { level: number; score: number; message?: string }) {
   return (
     <Box flexDirection="column" padding={2}>
       <Box borderStyle="round" borderColor="red" flexDirection="column" padding={2}>
@@ -147,8 +184,8 @@ function GameOverScreen({ level, score }: { level: number; score: number }) {
           </Text>
         </Box>
 
-        <Box justifyContent="center" marginY={1}>
-          <Text>You hit an obstacle!</Text>
+        <Box justifyContent="center" marginY={1} marginX={2}>
+          <Text color="yellow">{message || "You hit an obstacle!"}</Text>
         </Box>
 
         <Box justifyContent="center" marginY={1}>

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { GAME_HEIGHT, GAME_WIDTH, GameState, ISLAND_DISTANCE, Obstacle } from './types.js';
+import { GAME_HEIGHT, GAME_OVER_MESSAGES, GAME_WIDTH, GameState, ISLAND_DISTANCE, Obstacle } from './types.js';
 
 export function useGame() {
   const [gameState, setGameState] = useState<GameState>({
@@ -55,7 +55,7 @@ export function useGame() {
   useEffect(() => {
     if (gameState.gameStatus !== 'playing') return;
 
-    const speed = Math.max(100, 300 - (gameState.level - 1) * 20);
+    const speed = Math.max(80, 180 - (gameState.level - 1) * 30);
     const interval = setInterval(() => {
       setGameState(prev => {
         // Move obstacles down (simulating player moving forward)
@@ -67,18 +67,25 @@ export function useGame() {
           .filter(obs => obs.position.y < GAME_HEIGHT);
 
         // Add new obstacles occasionally
+        // Number of obstacles increases with level (1-3 obstacles per spawn)
         const newObstacles = [...movedObstacles];
+        const maxObstaclesPerSpawn = Math.min(3, Math.floor(prev.level / 2) + 1);
+
         if (Math.random() < 0.3) {
-          const newObstacle: Obstacle = {
-            id: obstacleIdCounter,
-            position: {
-              x: Math.floor(Math.random() * GAME_WIDTH),
-              y: 0,
-            },
-            type: Math.random() < 0.5 ? 'rock' : 'wave',
-          };
-          newObstacles.push(newObstacle);
-          setObstacleIdCounter(c => c + 1);
+          const numToSpawn = Math.floor(Math.random() * maxObstaclesPerSpawn) + 1;
+
+          for (let i = 0; i < numToSpawn; i++) {
+            const newObstacle: Obstacle = {
+              id: obstacleIdCounter + i,
+              position: {
+                x: Math.floor(Math.random() * GAME_WIDTH),
+                y: 0,
+              },
+              type: Math.random() < 0.5 ? 'rock' : 'wave',
+            };
+            newObstacles.push(newObstacle);
+          }
+          setObstacleIdCounter(c => c + numToSpawn);
         }
 
         // Check collision
@@ -89,7 +96,8 @@ export function useGame() {
         );
 
         if (collision) {
-          return { ...prev, gameStatus: 'gameOver' };
+          const randomMessage = GAME_OVER_MESSAGES[Math.floor(Math.random() * GAME_OVER_MESSAGES.length)];
+          return { ...prev, gameStatus: 'gameOver', gameOverMessage: randomMessage };
         }
 
         // Update distance and check if reached island
