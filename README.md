@@ -1,4 +1,7 @@
-# CLI Game for Kirat
+# A CLI Game for Kirat
+
+<img width="1135" height="512" alt="Screenshot 2025-12-12 at 9 56 34 AM" src="https://github.com/user-attachments/assets/35899638-ef66-4fe9-8f3d-f13a6ee998b2" />
+
 
 ## Spec
 
