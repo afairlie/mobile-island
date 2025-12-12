@@ -48,7 +48,7 @@ export function Game() {
       obs.position.x >= 0 &&
       obs.position.x < GAME_WIDTH
     ) {
-      grid[obs.position.y][obs.position.x] = obs.type === 'rock' ? '🗿' : obs.type === "wave" ? '🌊' : '🦈';
+      grid[obs.position.y][obs.position.x] = obs.type === 'rock' ? '🗿' : '🌊';
     }
   });
 
@@ -117,7 +117,7 @@ export function Game() {
         </Box>
 
         <Box marginTop={1}>
-          <Text dimColor>Use arrow keys to move • Dodge obstacles (🗿 🌊 🦈) • Reach the island!</Text>
+          <Text dimColor>Use arrow keys to move • Dodge obstacles (🗿 🌊) • Reach the island!</Text>
         </Box>
       </Box>
     </Box>
@@ -125,9 +125,8 @@ export function Game() {
 }
 
 function CelebrationScreen({ level, score }: { level: number; score: number }) {
-  const accomplishmentIndex = level % ACCOMPLISHMENTS.length;
-  // Reverse index so we go chronologically
-  const accomplishment = ACCOMPLISHMENTS.at(-accomplishmentIndex);
+  const accomplishmentIndex = (level - 1) % ACCOMPLISHMENTS.length;
+  const accomplishment = ACCOMPLISHMENTS.at(accomplishmentIndex);
 
   return (
     <Box flexDirection="column" padding={2}>

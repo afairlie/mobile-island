@@ -6,8 +6,7 @@ export interface Position {
 export interface Obstacle {
   id: number;
   position: Position;
-  // type: 'apple-rejection' | 'google-rejection' | 'upgrade-streamchat';
-  type: 'rock' | 'wave' | 'shark'
+  type: 'rock' | 'wave'
 }
 
 export interface GameState {

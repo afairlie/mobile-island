@@ -49,9 +49,9 @@ row-kirat-row
 
 ## How to Play
 
-- Use **arrow keys** to move your boat (▲)
-- Dodge obstacles: rocks (◆) and waves (~)
-- Reach Mobile Island (🏝️) at the top
+- Use **arrow keys** to move your boat (🚣)
+- Dodge obstacles: rocks (🗿) and waves (🌊)
+- Reach Mobile Island (🌴) at the top
 - Each level increases the speed
 - Celebrate with Cooper, Leslie, and Ariane when you reach the island
 - Press **SPACE** to start the next level
