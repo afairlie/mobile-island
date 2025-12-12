@@ -150,7 +150,7 @@ function CelebrationScreen({ level, score }: { level: number; score: number }) {
         </Box>
 
         <Box justifyContent="center" marginBottom={2}>
-          <Text color="white">✨ {accomplishment}</Text>
+          <Text color="white">🤩 {accomplishment}</Text>
         </Box>
 
         <Box justifyContent="center" marginY={1}>
