@@ -1,6 +1,6 @@
 {
   "name": "mobile-island",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A CLI rowing game built with React Ink",
   "type": "module",
   "scripts": {

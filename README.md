@@ -79,7 +79,8 @@ Prerequisites:
 
 3. Create a GitHub release and upload the `row-kirat-row` binary
    ```bash
-   bun run release [-- --notes "Release notes"]
+   # run interactive release
+   bun run release
    ```
 
 4. Users can then install with:
